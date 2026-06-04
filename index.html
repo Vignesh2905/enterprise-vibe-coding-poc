@@ -7,205 +7,138 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .header {
-            background-color: #1B4F72;
-            color: #ffffff;
-            padding: 1em;
-            text-align: center;
-        }
-        
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1em;
+            background-color: #f0f0f0;
         }
         
         .product-card {
-            background-color: #ffffff;
-            padding: 1em;
-            border-radius: 0.5em;
+            width: 400px;
+            height: 200px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
         }
         
-        .cart {
+        .shopping-cart {
             position: fixed;
-            top: 50%;
+            top: 0;
             right: 0;
-            transform: translateY(-50%);
-            background-color: #ffffff;
-            padding: 1em;
-            border-radius: 0.5em;
+            width: 300px;
+            height: 100vh;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
         
-        .cart-total {
+        .cart-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item .name {
             font-weight: bold;
+        }
+        
+        .cart-item .price {
             color: #1A8754;
+        }
+        
+        .cart-item .remove {
+            float: right;
+        }
+        
+        .checkout-button {
+            background-color: #1A8754;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .checkout-button:hover {
+            background-color: #1A8754;
+            color: #fff;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Product Catalogue</h1>
-    </div>
-    <div class="product-grid">
-        <div class="product-card">
-            <h2>Dell XPS 15 Laptop</h2>
-            <img src="https://picsum.photos/200/300?random=1" />
-            <p>15-inch 4K display, Intel Core i7, 16GB RAM, 512GB SSD</p>
-            <p>$1,299.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Apple Magic Keyboard</h2>
-            <img src="https://picsum.photos/200/300?random=2" />
-            <p>Wireless, rechargeable, scissor mechanism keys</p>
-            <p>$129.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Logitech MX Master 3 Mouse</h2>
-            <img src="https://picsum.photos/200/300?random=3" />
-            <p>Advanced wireless mouse, ergonomic, 7 buttons</p>
-            <p>$99.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Samsung 27-inch 4K Monitor</h2>
-            <img src="https://picsum.photos/200/300?random=4" />
-            <p>UHD IPS panel, 144Hz, USB-C, HDR600</p>
-            <p>$449.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Sony WH-1000XM5 Headphones</h2>
-            <img src="https://picsum.photos/200/300?random=5" />
-            <p>Industry-leading noise cancellation, 30hr battery</p>
-            <p>$349.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Apple iPad Pro 12.9</h2>
-            <img src="https://picsum.photos/200/300?random=6" />
-            <p>M2 chip, Liquid Retina XDR display, 256GB</p>
-            <p>$1,099.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Logitech C920 Webcam</h2>
-            <img src="https://picsum.photos/200/300?random=7" />
-            <p>Full HD 1080p, built-in dual microphone, autofocus</p>
-            <p>$89.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Anker USB-C Hub 7-in-1</h2>
-            <img src="https://picsum.photos/200/300?random=8" />
-            <p>HDMI 4K, 3x USB-A, SD card, 100W charging</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Apple Watch Series 9</h2>
-            <img src="https://picsum.photos/200/300?random=9" />
-            <p>GPS 45mm, health monitoring, crash detection</p>
-            <p>$399.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <h2>Keychron K2 Mechanical Keyboard</h2>
-            <img src="https://picsum.photos/200/300?random=10" />
-            <p>Wireless, RGB backlight, hot-swappable switches</p>
-            <p>$89.99</p>
-            <button>Add to Cart</button>
-        </div>
-    </div>
-    <div class="cart">
-        <h2>Cart</h2>
-        <ul id="cart-list">
-            <!-- cart items will be displayed here -->
-        </ul>
-        <p class="cart-total"></p>
-        <button id="remove-item">Remove Item</button>
-        <button id="clear-cart">Clear Cart</button>
-        <button id="checkout">Proceed to Checkout</button>
-    </div>
     <script>
         let cart = [];
-        const cartList = document.getElementById('cart-list');
-        const cartTotal = document.querySelector('.cart-total');
-        const removeItemBtn = document.getElementById('remove-item');
-        const clearCartBtn = document.getElementById('clear-cart');
-        const checkoutBtn = document.getElementById('checkout');
-
-        // add event listeners to buttons
-        removeItemBtn.addEventListener('click', removeItem);
-        clearCartBtn.addEventListener('click', clearCart);
-        checkoutBtn.addEventListener('click', checkout);
-
-        // display cart items
-        document.addEventListener('DOMContentLoaded', function() {
-            if (localStorage.getItem('cart')) {
-                cart = JSON.parse(localStorage.getItem('cart'));
-                displayCart();
-            }
-        });
-
-        // add product to cart
-        const addBtns = document.querySelectorAll('.product-card button');
-        addBtns.forEach(btn => {
-            btn.addEventListener('click', addProduct);
-        });
-
-        // function to add product to cart
-        function addProduct(e) {
-            const product = {
-                name: e.target.parentNode.querySelector('h2').textContent,
-                price: e.target.parentNode.querySelector('p:nth-child(4)').textContent
-            };
+        let total = 0;
+        
+        function addProductToCart(product) {
             cart.push(product);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            displayCart();
+            total += product.price;
+            document.getElementById('cart-total').innerHTML = `Total: $${total.toFixed(2)}`;
+            updateCart();
         }
-
-        // function to display cart
-        function displayCart() {
-            cartList.innerHTML = '';
-            let total = 0;
-            cart.forEach(product => {
-                const li = document.createElement('li');
-                li.textContent = `${product.name} - ${product.price}`;
-                li.addEventListener('click', removeItem);
-                cartList.appendChild(li);
-                total += parseFloat(product.price.replace('$', ''));
+        
+        function removeProductFromCart(index) {
+            total -= cart[index].price;
+            cart.splice(index, 1);
+            document.getElementById('cart-total').innerHTML = `Total: $${total.toFixed(2)}`;
+            updateCart();
+        }
+        
+        function updateCart() {
+            let cartContainer = document.getElementById('cart-container');
+            cartContainer.innerHTML = '';
+            cart.forEach((product, index) => {
+                let cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <div class="name">${product.name}</div>
+                    <div class="price">$${product.price.toFixed(2)}</div>
+                    <div class="remove" onClick="removeProductFromCart(${index})">Remove</div>
+                `;
+                cartContainer.appendChild(cartItem);
             });
-            cartTotal.textContent = `Total: $${total}`;
         }
-
-        // function to remove item
-        function removeItem(e) {
-            if (e.target == cartList) {
-                const li = e.target.parentNode;
-                cart.splice(cart.indexOf(li.textContent), 1);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                displayCart();
-            }
-        }
-
-        // function to clear cart
-        function clearCart() {
-            cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            displayCart();
-        }
-
-        // function to checkout
+        
         function checkout() {
-            alert(`Order Total: $${parseFloat(cartTotal.textContent.replace('$', ''))}`);
+            alert(`Order Total: $${total.toFixed(2)}`);
         }
+        
+        let products = [
+            { name: 'Dell XPS 15 Laptop', price: 1299.99, image: 'https://picsum.photos/400/200?random=1' },
+            { name: 'Apple Magic Keyboard', price: 129.99, image: 'https://picsum.photos/400/200?random=2' },
+            { name: 'Logitech MX Master 3 Mouse', price: 99.99, image: 'https://picsum.photos/400/200?random=3' },
+            { name: 'Samsung 27-inch 4K Monitor', price: 449.99, image: 'https://picsum.photos/400/200?random=4' },
+            { name: 'Sony WH-1000XM5 Headphones', price: 349.99, image: 'https://picsum.photos/400/200?random=5' },
+            { name: 'Apple iPad Pro 12.9', price: 1099.99, image: 'https://picsum.photos/400/200?random=6' },
+        ];
+        
+        products.forEach((product, index) => {
+            let productCard = document.createElement('div');
+            productCard.classList.add('product-card');
+            productCard.innerHTML = `
+                <img src="${product.image}" height="150" />
+                <div class="name">${product.name}</div>
+                <div class="price">$${product.price.toFixed(2)}</div>
+                <button onClick="addProductToCart(${JSON.stringify(product)})">Add to Cart</button>
+            `;
+            document.getElementById('product-catalogue').appendChild(productCard);
+        });
     </script>
+    <div class="product-catalogue">
+        <h1>Product Catalogue</h1>
+        <div id="product-catalogue"></div>
+    </div>
+    <div class="shopping-cart">
+        <h1>Shopping Cart</h1>
+        <div id="cart-container"></div>
+        <p id="cart-total"></p>
+        <button class="checkout-button" onClick="checkout()">Checkout</button>
+    </div>
 </body>
 </html>
