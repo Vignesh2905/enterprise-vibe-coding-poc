@@ -1,110 +1,228 @@
 <html>
-  <head>
-    <style>
-      /* Styles for product cards */
-      .product-card {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      
-      /* Styles for cart */
-      .cart {
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      
-      /* Styles for cart items */
-      .cart-item {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-      }
-      
-      /* Styles for cart total */
-      .cart-total {
-        padding: 10px;
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Product catalogue page -->
-    <div class="product-card">
-      <img src="https://via.placeholder.com/150" alt="Product image">
-      <div>
-        <h2>Product Name</h2>
-        <p>Product description</p>
-        <button>Add to cart</button>
+<head>
+<style>
+.product-image {
+  height: 160px;
+  background: #E8F4FD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.product-emoji {
+  font-size: 64px;
+}
+
+.card {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #FFFFFF;
+}
+
+.cart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #FFFFFF;
+  padding: 20px;
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.cart-item-name {
+  font-weight: bold;
+}
+
+.cart-item-price {
+  color: #1A8754;
+}
+
+.cart-total {
+  font-weight: bold;
+  font-size: 24px;
+  color: #1A8754;
+}
+
+.proceed-to-checkout {
+  background-color: #1B4F72;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.proceed-to-checkout:hover {
+  background-color: #14536A;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Product Catalogue</h1>
+  <div class="product-grid">
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">💻</span>
       </div>
+      <h2>Dell XPS 15 Laptop</h2>
+      <p>15-inch 4K display, Intel Core i7, 16GB RAM, 512GB SSD</p>
+      <p>Price: $1,299.99</p>
+      <button class="add-to-cart">Add to Cart</button>
     </div>
-    
-    <!-- Cart page -->
-    <div class="cart">
-      <h2>Cart</h2>
-      <div class="cart-item">
-        <img src="https://via.placeholder.com/50" alt="Product image">
-        <div>
-          <h2>Product Name</h2>
-          <p>Product description</p>
-          <button_remove</button>
-        </div>
-        <span>Price</span>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">⌨️</span>
       </div>
-      <div class="cart-total">Cart total: $0.00</div>
-      <button>Checkout</button>
+      <h2>Apple Magic Keyboard</h2>
+      <p>Wireless, rechargeable, scissor mechanism keys</p>
+      <p>Price: $129.99</p>
+      <button class="add-to-cart">Add to Cart</button>
     </div>
-    
-    <script>
-      // Add to cart functionality
-      document.addEventListener("DOMContentLoaded", function () {
-        const addButtons = document.querySelectorAll(".product-card button.add-to-cart");
-        addButtons.forEach(function (button) {
-          button.addEventListener("click", function () {
-            // Add product to cart
-            const cart = JSON.parse(localStorage.getItem("cart")) || {};
-            cart[button.dataset.productId] = {
-              name: "",
-              price: "",
-            };
-            localStorage.setItem("cart", JSON.stringify(cart));
-            // Update cart total
-            const cartTotal = document.querySelector(".cart-total");
-            const cartItems = JSON.parse(localStorage.getItem("cart"));
-            let total = 0;
-            Object.values(cartItems).forEach(function (item) {
-              total += parseFloat(item.price);
-            });
-            cartTotal.textContent = `Cart total: $${total.toFixed(2)}`;
-          });
-        });
-      
-        // Remove item from cart functionality
-        const removeButtons = document.querySelectorAll(".cart-item button.remove");
-        removeButtons.forEach(function (button) {
-          button.addEventListener("click", function () {
-            // Remove item from cart
-            const cart = JSON.parse(localStorage.getItem("cart"));
-            delete cart[button.dataset.productId];
-            localStorage.setItem("cart", JSON.stringify(cart));
-            // Update cart total
-            const cartTotal = document.querySelector(".cart-total");
-            const cartItems = JSON.parse(localStorage.getItem("cart"));
-            let total = 0;
-            Object.values(cartItems).forEach(function (item) {
-              total += parseFloat(item.price);
-            });
-            cartTotal.textContent = `Cart total: $${total.toFixed(2)}`;
-          });
-        });
-      });
-    </script>
-  </body>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">🖱️</span>
+      </div>
+      <h2>Logitech MX Master 3 Mouse</h2>
+      <p>Advanced wireless mouse, ergonomic, 7 buttons</p>
+      <p>Price: $99.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">🖥️</span>
+      </div>
+      <h2>Samsung 27-inch 4K Monitor</h2>
+      <p>UHD IPS panel, 144Hz, USB-C, HDR600</p>
+      <p>Price: $449.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">🎧</span>
+      </div>
+      <h2>Sony WH-1000XM5 Headphones</h2>
+      <p>Industry-leading noise cancellation, 30hr battery</p>
+      <p>Price: $349.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">📱</span>
+      </div>
+      <h2>Apple iPad Pro 12.9</h2>
+      <p>M2 chip, Liquid Retina XDR display, 256GB</p>
+      <p>Price: $1,099.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">📷</span>
+      </div>
+      <h2>Logitech C920 Webcam</h2>
+      <p>Full HD 1080p, built-in dual microphone, autofocus</p>
+      <p>Price: $89.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">🔌</span>
+      </div>
+      <h2>Anker USB-C Hub 7-in-1</h2>
+      <p>HDMI 4K, 3x USB-A, SD card, 100W charging</p>
+      <p>Price: $49.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">⌚</span>
+      </div>
+      <h2>Apple Watch Series 9</h2>
+      <p>GPS 45mm, health monitoring, crash detection</p>
+      <p>Price: $399.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="card">
+      <div class="product-image">
+        <span class="product-emoji">⌨️</span>
+      </div>
+      <h2>Keychron K2 Mechanical Keyboard</h2>
+      <p>Wireless, RGB backlight, hot-swappable switches</p>
+      <p>Price: $89.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+  <div class="cart">
+    <h2>Cart</h2>
+    <div class="cart-items"></div>
+    <p class="cart-total">Total: $0.00</p>
+    <button class="proceed-to-checkout">Proceed to Checkout</button>
+  </div>
+</div>
+<script>
+const products = [
+  { name: "Dell XPS 15 Laptop", price: 1299.99 },
+  { name: "Apple Magic Keyboard", price: 129.99 },
+  { name: "Logitech MX Master 3 Mouse", price: 99.99 },
+  { name: "Samsung 27-inch 4K Monitor", price: 449.99 },
+  { name: "Sony WH-1000XM5 Headphones", price: 349.99 },
+  { name: "Apple iPad Pro 12.9", price: 1099.99 },
+  { name: "Logitech C920 Webcam", price: 89.99 },
+  { name: "Anker USB-C Hub 7-in-1", price: 49.99 },
+  { name: "Apple Watch Series 9", price: 399.99 },
+  { name: "Keychron K2 Mechanical Keyboard", price: 89.99 },
+];
+
+const cart = [];
+
+document.querySelectorAll(".add-to-cart").forEach((button) => {
+  button.addEventListener("click", () => {
+    const productName = button.parentNode.querySelector("h2").textContent;
+    const product = products.find((product) => product.name === productName);
+    cart.push(product);
+    updateCart();
+  });
+});
+
+function updateCart() {
+  const cartItems = document.querySelector(".cart-items");
+  cartItems.innerHTML = "";
+  cart.forEach((product) => {
+    const cartItem = document.createElement("div");
+    cartItem.classList.add("cart-item");
+    cartItem.innerHTML = `
+      <span class="cart-item-name">${product.name}</span>
+      <span class="cart-item-price">$${product.price}</span>
+      <button class="remove-from-cart">Remove</button>
+    `;
+    cartItems.appendChild(cartItem);
+  });
+  const cartTotal = cart.reduce((total, product) => total + product.price, 0);
+  document.querySelector(".cart-total").textContent = `Total: $${cartTotal}`;
+  document.querySelectorAll(".remove-from-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productName = button.parentNode.querySelector(".cart-item-name").textContent;
+      const productIndex = cart.findIndex((product) => product.name === productName);
+      cart.splice(productIndex, 1);
+      updateCart();
+    });
+  });
+}
+
+document.querySelector(".proceed-to-checkout").addEventListener("click", () => {
+  alert(`Your total is: $${cart.reduce((total, product) => total + product.price, 0)}`);
+});
+</script>
+</body>
 </html>
