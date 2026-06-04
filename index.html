@@ -1,158 +1,200 @@
-<!DOCTYPE html >
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Catalogue</title>
-    <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        
-        /* Cart Styles */
-        .cart-container {
-            position: fixed;
-            top: 50px;
-            right: 20px;
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ddd;
-        }
-        
-        .cart-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        
-        .cart-actions {
-            text-align: right;
-        }
-        
-        /* Product Grid Styles */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        
-        .product-grid-item {
-            background-color: #f7f7f7;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .product-grid-item img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px 10px 0 0;
-        }
-        
-        .product-grid-item h2 {
-            margin-top: 0;
-        }
-        
-        .product-grid-item p {
-            margin-bottom: 20px;
-        }
-        
-        /* Add to Cart Button Styles */
-        .add-to-cart-btn {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .add-to-cart-btn:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #1B4F72;
+      color: #FFFFFF;
+      padding: 1em;
+      text-align: center;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .product {
+      background-color: #FFFFFF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+      height: 160px;
+      background: #E8F4FD;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .product-emoji {
+      font-size: 64px;
+    }
+
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #FFFFFF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-summary {
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      margin-bottom: 10px;
+    }
+
+    .remove-btn {
+      background-color: #1A8754;
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .checkout-btn {
+      background-color: #1A8754;
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#product-grid">Product Grid</a></li>
-                <li><a href="#cart">Cart</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="product-grid">
-            <h1>Product Catalogue</h1>
-            <div class="product-grid">
-                <div class="product-grid-item">
-                    <img src="https://via.placeholder.com/300/92c952" alt="Product 1">
-                    <h2>Dell XPS 15 Laptop</h2>
-                    <p>$1,299.99</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
-                <div class="product-grid-item">
-                    <img src="https://via.placeholder.com/300/92c952" alt="Product 2">
-                    <h2>Apple Magic Keyboard</h2>
-                    <p>$129.99</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
-                <div class="product-grid-item">
-                    <img src="https://via.placeholder.com/300/92c952" alt="Product 3">
-                    <h2>Logitech MX Master 3 Mouse</h2>
-                    <p>$99.99</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
-                <div class="product-grid-item">
-                    <img src="https://via.placeholder.com/300/92c952" alt="Product 4">
-                    <h2>Samsung 27-inch 4K Monitor</h2>
-                    <p>$449.99</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
-                <div class="product-grid-item">
-                    <img src="https://via.placeholder.com/300/92c952" alt="Product 5">
-                    <h2>Sony WH-1000XM5 Headphones</h2>
-                    <p>$349.99</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
-                <div class="product-grid-item">
-                    <img src="https://via.placeholder.com/300/92c952" alt="Product 6">
-                    <h2>Apple iPad Pro 12.9</h2>
-                    <p>$1,099.99</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
-            </div>
-        </section>
-        <section id="cart">
-            <h1>Cart</h1>
-            <div class="cart-container">
-                <h2>Cart Items:</h2>
-                <ul class="cart-item">
-                    <li>Dell XPS 15 Laptop x 1</li>
-                    <li>Apple Magic Keyboard x 1</li>
-                    <li>Logitech MX Master 3 Mouse x 1</li>
-                </ul>
-                <div class="cart-actions">
-                    <button class="remove-from-cart-btn">Remove from Cart</button>
-                    <button class="empty-cart-btn">Empty Cart</button>
-                </div>
-                <div class="cart-total">
-                    <p>Subtotal: $2,579.92</p>
-                    <p>Tax (20%): $1,515.98</p>
-                    <p>Total: $4,095.90</p>
-                </div>
-            </div>
-        </section>
-    </main>
-    <script>
-        // JavaScript code here
-    </script>
+  <div class="header">
+    <h1>Product Catalogue</h1>
+  </div>
+
+  <div class="product-grid">
+    <div class="product">
+      <div class="product-image">
+        <span class="product-emoji">💻</span>
+      </div>
+      <h2>Dell XPS 15 Laptop</h2>
+      <p>$1,299.99</p>
+      <button class="add-btn">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <div class="product-image">
+        <span class="product-emoji">⌨️</span>
+      </div>
+      <h2>Apple Magic Keyboard</h2>
+      <p>$129.99</p>
+      <button class="add-btn">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <div class="product-image">
+        <span class="product-emoji">🖱️</span>
+      </div>
+      <h2>Logitech MX Master 3 Mouse</h2>
+      <p>$99.99</p>
+      <button class="add-btn">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="cart">
+    <h2 Cart Summary</h2>
+    <div class="cart-summary">
+      <p id="cart-total"></p>
+      <p id="cart-items"></p>
+    </div>
+    <button class="remove-btn">Remove Item</button>
+    <button class="checkout-btn">Proceed to Checkout</button>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function updateCartTotal() {
+      let total = 0;
+      for (let item of cart) {
+        total += item.price;
+      }
+      document.getElementById('cart-total').innerHTML = `Total: $${total.toFixed(2)}`;
+    }
+
+    function updateCartItems() {
+      let items = '';
+      for (let item of cart) {
+        items += `Item: ${item.name}, Price: $${item.price.toFixed(2)}, Quantity: ${item.quantity}<br>`;
+      }
+      document.getElementById('cart-items').innerHTML = items;
+    }
+
+    function addItemToCart(name, price) {
+      let found = false;
+      for (let item of cart) {
+        if (item.name === name) {
+          item.quantity++;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        cart.push({ name, price, quantity: 1 });
+      }
+      updateCartTotal();
+      updateCartItems();
+    }
+
+    function removeItemFromCart(name) {
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].name === name) {
+          cart.splice(i, 1);
+          updateCartTotal();
+          updateCartItems();
+          return;
+        }
+      }
+    }
+
+    function proceedToCheckout() {
+      let total = 0;
+      for (let item of cart) {
+        total += item.price * item.quantity;
+      }
+      alert(`Order Total: $${total.toFixed(2)}`);
+      cart = [];
+      updateCartTotal();
+      updateCartItems();
+    }
+
+    document.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        let name = btn.parentNode.querySelector('h2').innerHTML;
+        let price = parseFloat(btn.parentNode.querySelector('p').innerHTML.replace('$', ''));
+        addItemToCart(name, price);
+      });
+    });
+
+    document.querySelector('.remove-btn').addEventListener('click', () => {
+      let name = prompt('Enter the item name to remove:');
+      removeItemFromCart(name);
+    });
+
+    document.querySelector('.checkout-btn').addEventListener('click', proceedToCheckout);
+  </script>
 </body>
+
 </html>
