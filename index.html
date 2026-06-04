@@ -1,230 +1,169 @@
 <html>
 
 <head>
-    <style>
-        /* Styles for the product catalogue webpage */
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
 
-        /* Styles for the products */
+    /* Product Card Styles */
+    .product-card {
+      width: 300px;
+      height: 200px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
 
-        .product {
-            width: 220px;
-            height: 250px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 10px;
-        }
+    /* Cart Styles */
+    .cart {
+      position: fixed;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .product img {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
-            margin: 10px;
-        }
+    /* Cart Item Styles */
+    .cart-item {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
 
-        .product h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .product p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .product .price {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1A8754;
-            margin-bottom: 10px;
-        }
-
-        /* Styles for the cart */
-
-        .cart {
-            width: 300px;
-            height: 400px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            padding: 20px;
-            position: fixed;
-            top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-        }
-
-        .cart h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .cart ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .cart li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .cart .remove {
-            font-size: 14px;
-            color: #666;
-            cursor: pointer;
-        }
-
-        .cart .total {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1A8754;
-        }
-    </style>
+    /* Cart Total Styles */
+    .cart-total {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <h1>Product Catalogue</h1>
-    </header>
-    <main>
-        <section class="products">
-            <div class="product">
-                <img src="path/to/image1.jpg" alt="Product 1">
-                <h2>Product 1</h2>
-                <p>This is the description of Product 1.</p>
-                <span class="price">$9.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="path/to/image2.jpg" alt="Product 2">
-                <h2>Product 2</h2>
-                <p>This is the description of Product 2.</p>
-                <span class="price">$14.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="path/to/image3.jpg" alt="Product 3">
-                <h2>Product 3</h2>
-                <p>This is the description of Product 3.</p>
-                <span class="price">$19.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="path/to/image4.jpg" alt="Product 4">
-                <h2>Product 4</h2>
-                <p>This is the description of Product 4.</p>
-                <span class="price">$24.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="path/to/image5.jpg" alt="Product 5">
-                <h2>Product 5</h2>
-                <p>This is the description of Product 5.</p>
-                <span class="price">$29.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="path/to/image6.jpg" alt="Product 6">
-                <h2>Product 6</h2>
-                <p>This is the description of Product 6.</p>
-                <span class="price">$34.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-        </section>
-        <section class="cart">
-            <h2>Cart</h2>
-            <ul>
-                <li>
-                    <span class="product-name">Product 1</span>
-                    <span class="price">$9.99</span>
-                    <button class="remove">Remove</button>
-                </li>
-                <li>
-                    <span class="product-name">Product 2</span>
-                    <span class="price">$14.99</span>
-                    <button class="remove">Remove</button>
-                </li>
-                <li>
-                    <span class="product-name">Product 3</span>
-                    <span class="price">$19.99</span>
-                    <button class="remove">Remove</button>
-                </li>
-                <li>
-                    <span class="product-name">Product 4</span>
-                    <span class="price">$24.99</span>
-                    <button class="remove">Remove</button>
-                </li>
-                <li>
-                    <span class="product-name">Product 5</span>
-                    <span class="price">$29.99</span>
-                    <button class="remove">Remove</button>
-                </li>
-                <li>
-                    <span class="product-name">Product 6</span>
-                    <span class="price">$34.99</span>
-                    <button class="remove">Remove</button>
-                </li>
-            </ul>
-            <span class="total">$64.90</span>
-            <button class="checkout">Checkout</button>
-        </section>
-    </main>
-    <script>
-        // Get all elements
-const products = document.querySelectorAll('.product');
-const cart = document.querySelector('.cart');
-const addToCartButtons = document.querySelectorAll('.add-to-cart');
-const removeButtons = document.querySelectorAll('.remove');
-const checkoutButton = document.querySelector('.checkout');
+  <header>
+    <h1>Product Catalogue</h1>
+  </header>
 
-// Add event listeners to add to cart buttons
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Get the product name and price
-        const productName = button.parentNode.querySelector('h2').textContent;
-        const price = button.parentNode.querySelector('.price').textContent;
+  <main>
+    <section class="product-cards">
+      <!-- Product Cards -->
+      <div class="product-card">
+        <img src="#" alt="Product 1">
+        <h2>Dell XPS 15 Laptop</h2>
+        <p>$1,299.99</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="#" alt="Product 2">
+        <h2>Apple Magic Keyboard</h2>
+        <p>$129.99</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="#" alt="Product 3">
+        <h2>Logitech MX Master 3 Mouse</h2>
+        <p>$99.99</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="#" alt="Product 4">
+        <h2>Samsung 27-inch 4K Monitor</h2>
+        <p>$449.99</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="#" alt="Product 5">
+        <h2>Sony WH-1000XM5 Headphones</h2>
+        <p>$349.99</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="#" alt="Product 6">
+        <h2>Apple iPad Pro 12.9</h2>
+        <p>$1,099.99</p>
+        <button>Add to Cart</button>
+      </div>
+    </section>
 
-        // Add product to cart
-        const cartItem = document.createElement('li');
-        cartItem.innerHTML = `
-            <span class="product-name">${productName}</span>
-            <span class="price">${price}</span>
-            <button class="remove">Remove</button>
+    <aside class="cart">
+      <h2>Cart</h2>
+      <ul class="cart-items">
+        <!-- Cart Items -->
+      </ul>
+      <div class="cart-total">
+        <p>Cart Total: $0.00</p>
+      </div>
+      <button>Proceed to Checkout</button>
+    </aside>
+  </main>
+
+  <script>
+    // Cart Variables
+    let cartItems = [];
+    let cartTotal = 0.00;
+
+    // Add Product to Cart
+    document.querySelectorAll('.product-card button').forEach(button => {
+      button.addEventListener('click', () => {
+        const product = button.parentNode;
+        const productName = product.querySelector('h2').textContent;
+        const productPrice = parseFloat(product.querySelector('p').textContent.replace('$', ''));
+
+        // Check if item is already in cart
+        const existingItem = cartItems.find(item => item.name === productName);
+        if (existingItem) {
+          existingItem.quantity += 1;
+          cartTotal += productPrice;
+          updateCart();
+        } else {
+          cartItems.push({ name: productName, quantity: 1, price: productPrice });
+          cartTotal += productPrice;
+          updateCart();
+        }
+      });
+    });
+
+    // Update Cart
+    function updateCart() {
+      const cartItemsElement = document.querySelector('.cart-items');
+      cartItemsElement.innerHTML = '';
+      cartItems.forEach(item => {
+        const cartItemElement = document.createElement('li');
+        cartItemElement.innerHTML = `
+          <span>${item.name} x ${item.quantity}</span>
+          <span>$${(item.quantity * item.price).toFixed(2)}</span>
         `;
-        cart.querySelector('ul').appendChild(cartItem);
+        cartItemsElement.appendChild(cartItemElement);
+      });
+      const cartTotalElement = document.querySelector('.cart-total');
+      cartTotalElement.textContent = `Cart Total: $${cartTotal.toFixed(2)}`;
+    }
 
-        // Update cart total
-        const cartTotal = document.querySelector('.total');
-        const currentTotal = parseFloat(cartTotal.textContent);
-        cartTotal.textContent = currentTotal + parseFloat(price.slice(1));
+    // Remove Product from Cart
+    document.querySelectorAll('.cart-item button').forEach(button => {
+      button.addEventListener('click', () => {
+        const product = button.parentNode.parentNode;
+        const productName = product.querySelector('span:first-child').textContent;
+        const productPrice = parseFloat(product.querySelector('span:last-child').textContent.replace('$', ''));
+
+        // Remove item from cart
+        const existingItem = cartItems.find(item => item.name === productName);
+        if (existingItem) {
+          cartItems.splice(cartItems.indexOf(existingItem), 1);
+          cartTotal -= productPrice;
+          updateCart();
+        }
+      });
     });
-});
-
-// Add event listeners to remove buttons
-removeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Get the cart item
-        const cartItem = button.parentNode;
-
-        // Remove cart item
-        cartItem.remove();
-
-        // Update cart total
-        const cartTotal = document.querySelector('.total');
-        const currentTotal = parseFloat(cartTotal.textContent);
-        cartTotal.textContent = currentTotal - parseFloat(cartItem.querySelector('.price').textContent.slice(1));
-    });
-});
-
-// Add event listener to checkout button
-checkoutButton.addEventListener('click', () => {
-    // Display confirmation message
-    alert('Thank you for your order!');
-});
-    </script>
+  </script>
 </body>
+
 </html>
