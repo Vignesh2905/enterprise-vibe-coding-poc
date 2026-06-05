@@ -1,165 +1,107 @@
 <html>
-
 <head>
-  <style>
-    /* global styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* header styles */
-    .header {
-      background-color: #1B4F72;
-      color: #FFFFFF;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    /* product grid styles */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 1rem;
-      padding: 2rem;
-    }
-
-    /* product card styles */
-    .product-card {
-      background-color: #FFFFFF;
-      border: 1px solid #DDDDDD;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-      width: calc(33.33% - 1rem);
-    }
-
-    /* product image styles */
-    .product-image {
-      height: 160px;
-      background: #E8F4FD;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px 8px 0 0;
-    }
-
-    /* product emoji styles */
-    .product-emoji {
-      font-size: 64px;
-    }
-
-    /* cart styles */
-    .cart {
-      position: fixed;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #FFFFFF;
-      padding: 1rem;
-      border: 1px solid #DDDDDD;
-      border-radius: 8px;
-    }
-
-    /* cart item styles */
-    .cart-item {
-      padding: 1rem;
-      border-bottom: 1px solid #DDDDDD;
-    }
-  </style>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  .product-image {
+    height: 160px;
+    background: #E8F4FD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px 8px 0 0;
+  }
+  .product-emoji {
+    font-size: 64px;
+  }
+  .header {
+    background: #1B4F72;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+  .card {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .cart {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+</style>
 </head>
-
 <body>
-  <header class="header">
+  <div class="header">
     <h1>Product Catalogue</h1>
-  </header>
-
-  <div class="product-grid">
-    <div class="product-card">
+  </div>
+  <div class="products">
+    <div class="product" onclick="addProduct('Dell XPS 15 Laptop', 1299.99)">
       <div class="product-image">
         <span class="product-emoji">💻</span>
       </div>
       <h2>Dell XPS 15 Laptop</h2>
-      <p>15-inch 4K display, Intel Core i7, 16GB RAM, 512GB SSD</p>
       <p>$1,299.99</p>
-      <button class="add-to-cart">Add to Cart</button>
     </div>
-
-    <div class="product-card">
+    <div class="product" onclick="addProduct('Apple Magic Keyboard', 129.99)">
       <div class="product-image">
         <span class="product-emoji">⌨️</span>
       </div>
       <h2>Apple Magic Keyboard</h2>
-      <p>Wireless, rechargeable, scissor mechanism keys</p>
       <p>$129.99</p>
-      <button class="add-to-cart">Add to Cart</button>
     </div>
-
-    <div class="product-card">
-      <div class="product-image">
-        <span class="product-emoji">🖱️</span>
-      </div>
-      <h2>Logitech MX Master 3 Mouse</h2>
-      <p>Advanced wireless mouse, ergonomic, 7 buttons</p>
-      <p>$99.99</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
+    <!-- rest of the products -->
   </div>
-
   <div class="cart">
     <h2>Cart</h2>
-    <div class="cart-items">
-      <!-- cart items will be generated dynamically -->
-    </div>
-    <p>Subtotal: $0.00</p>
-    <button class="proceed-to-checkout">Proceed to Checkout</button>
+    <ul id="cartList">
+      <!-- cart items will be displayed here -->
+    </ul>
+    <p id="cartTotal">$0.00</p>
+    <button onclick="checkout()">Proceed to Checkout</button>
   </div>
-
   <script>
-    const cartItems = [];
-    const addToCartButton = document.querySelectorAll('.add-to-cart');
+    const cart = [];
+    const cartList = document.getElementById('cartList');
+    const cartTotal = document.getElementById('cartTotal');
 
-    addToCartButton.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        const product = e.target.parentNode;
-        const name = product.querySelector('h2').textContent;
-        const price = parseFloat(product.querySelector('p').textContent.split('$')[1]);
-        cartItems.push({ name, price });
-        updateCart();
-      });
-    });
+    function addProduct(name, price) {
+      cart.push({ name, price });
+      displayCart();
+    }
 
-    const updateCart = () => {
-      const cart = document.querySelector('.cart');
-      const cartItemsElement = cart.querySelector('.cart-items');
-      cartItemsElement.innerHTML = '';
-      cartItems.forEach((item, index) => {
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-          <h2>${item.name}</h2>
-          <p>$${item.price.toFixed(2)}</p>
-          <button class="remove-item">Remove</button>
-        `;
-        cartItemsElement.appendChild(cartItem);
-        const removeItemButton = cartItem.querySelector('.remove-item');
-        removeItemButton.addEventListener('click', () => {
-          cartItems.splice(index, 1);
-          updateCart();
-        });
-      });
-      const subtotal = cartItems.reduce((acc, item) => acc + item.price, 0);
-      cart.querySelector('p').textContent = `Subtotal: $${subtotal.toFixed(2)}`;
-      const proceedToCheckoutButton = cart.querySelector('.proceed-to-checkout');
-      proceedToCheckoutButton.addEventListener('click', () => {
-        alert(`Order total: $${subtotal.toFixed(2)}`);
-      });
-    };
+    function removeProduct(index) {
+      cart.splice(index, 1);
+      displayCart();
+    }
 
-    // initialize cart with empty message
-    updateCart();
+    function displayCart() {
+      cartList.innerHTML = '';
+      let total = 0;
+      cart.forEach((product, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${product.name}: $${product.price}`;
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = () => removeProduct(index);
+        li.appendChild(removeButton);
+        cartList.appendChild(li);
+        total += product.price;
+      });
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+    }
+
+    function checkout() {
+      alert(`Your total is: $${cart.reduce((a, b) => a + b.price, 0).toFixed(2)}`);
+    }
   </script>
 </body>
-
 </html>
