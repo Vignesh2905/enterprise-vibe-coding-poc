@@ -1,1 +1,197 @@
-<html>...</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalogue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .product img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+        .product .name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product .price {
+            font-size: 16px;
+            color: #1A8754;
+            margin-bottom: 20px;
+        }
+        .cart {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .cart .total {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .cart .items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .cart .items li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart .items li:last-child {
+            border-bottom: none;
+        }
+        .cart .remove {
+            font-size: 16px;
+            color: #1A8754;
+            cursor: pointer;
+        }
+        .checkout {
+            background-color: #1A8754;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Catalogue</h1>
+        <div class="products">
+            <div class="product">
+                <img src="https://picsum.photos/400/200?random=1" alt="Product 1">
+                <h2 class="name">Dell XPS 15 Laptop</h2>
+                <p class="price">$1,299.99</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://picsum.photos/400/200?random=2" alt="Product 2">
+                <h2 class="name">Apple Magic Keyboard</h2>
+                <p class="price">$129.99</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://picsum.photos/400/200?random=3" alt="Product 3">
+                <h2 class="name">Logitech MX Master 3 Mouse</h2>
+                <p class="price">$99.99</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://picsum.photos/400/200?random=4" alt="Product 4">
+                <h2 class="name">Samsung 27-inch 4K Monitor</h2>
+                <p class="price">$449.99</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://picsum.photos/400/200?random=5" alt="Product 5">
+                <h2 class="name">Sony WH-1000XM5 Headphones</h2>
+                <p class="price">$349.99</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://picsum.photos/400/200?random=6" alt="Product 6">
+                <h2 class="name">Apple iPad Pro 12.9</h2>
+                <p class="price">$1,099.99</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    <div class="cart">
+        <h2>Cart</h2>
+        <p class="total">$0.00</p>
+        <ul class="items">
+            <!-- Cart items will be displayed here -->
+        </ul>
+        <button class="checkout">Checkout</button>
+    </div>
+    <script>
+        const products = [
+            { id: 1, name: 'Dell XPS 15 Laptop', price: 1299.99, image: 'https://picsum.photos/400/200?random=1' },
+            { id: 2, name: 'Apple Magic Keyboard', price: 129.99, image: 'https://picsum.photos/400/200?random=2' },
+            { id: 3, name: 'Logitech MX Master 3 Mouse', price: 99.99, image: 'https://picsum.photos/400/200?random=3' },
+            { id: 4, name: 'Samsung 27-inch 4K Monitor', price: 449.99, image: 'https://picsum.photos/400/200?random=4' },
+            { id: 5, name: 'Sony WH-1000XM5 Headphones', price: 349.99, image: 'https://picsum.photos/400/200?random=5' },
+            { id: 6, name: 'Apple iPad Pro 12.9', price: 1099.99, image: 'https://picsum.photos/400/200?random=6' }
+        ];
+
+        let cart = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const productId = parseInt(button.dataset.productId);
+                    const product = products.find(p => p.id === productId);
+                    cart.push(product);
+                    updateCart();
+                });
+            });
+
+            const removeButtons = document.querySelectorAll('.remove');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const productId = parseInt(button.dataset.productId);
+                    cart = cart.filter(p => p.id !== productId);
+                    updateCart();
+                });
+            });
+
+            const checkoutButton = document.querySelector('.checkout');
+            checkoutButton.addEventListener('click', () => {
+                alert(`Total: $${cart.reduce((acc, p) => acc + p.price, 0).toFixed(2)}`);
+            });
+
+            updateCart();
+        });
+
+        function updateCart() {
+            const total = cart.reduce((acc, p) => acc + p.price, 0);
+            const totalElement = document.querySelector('.total');
+            totalElement.textContent = `$${total.toFixed(2)}`;
+
+            const itemsElement = document.querySelector('.items');
+            itemsElement.innerHTML = '';
+            cart.forEach(product => {
+                const itemElement = document.createElement('li');
+                itemElement.textContent = `${product.name} x 1 = $${product.price.toFixed(2)}`;
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.classList.add('remove');
+                removeButton.dataset.productId = product.id;
+                itemElement.appendChild(removeButton);
+                itemsElement.appendChild(itemElement);
+            });
+        }
+    </script>
+</body>
+</html>
